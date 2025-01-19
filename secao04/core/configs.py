@@ -1,21 +1,24 @@
-from typing import List
-
-from pydantic import AnyHttpUrl
+from typing import ClassVar
 from pydantic_settings import BaseSettings
 from sqlalchemy.ext.declarative import declarative_base
+from dotenv import load_dotenv
+import os
 
+# Carregar o arquivo .env
+load_dotenv()
 
 class Settings(BaseSettings):
-    ''''
-    Configurações gerais da aplicação
-    '''
-    API_V1_STR: str = '/api/v1'
-    DB_URL: str = 'postgresql+asyncpg://geek:university@localhost:5432/faculdade'
-    DBBaseModel = declarative_base()
+    """
+    Configurações gerais
+    """
+    API_V1_STR: str = os.getenv("API_V1_STR", "/api/v1")
+    DB_URL: str = os.getenv("DB_URL", "postgresql+asyncpg://default_user:default_password@localhost:5432/default_db")
+    DBBaseModel: ClassVar = declarative_base()
 
-
-class Config:
-    case_sensitive = True
+    class Config:
+        case_sensitive = True
 
 
 settings = Settings()
+
+
