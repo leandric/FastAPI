@@ -1,0 +1,9 @@
+# Usa a imagem oficial do PostgreSQL
+FROM postgres:15
+
+# Define variáveis de ambiente para o usuário e senha padrão
+ENV POSTGRES_USER teste
+ENV POSTGRES_PASSWORD root
+
+# Expondo a porta padrão do PostgreSQL
+EXPOSE 5432
